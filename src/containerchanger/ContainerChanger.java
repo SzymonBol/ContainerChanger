@@ -18,27 +18,37 @@ public class ContainerChanger {
     public static void main(String[] args) {
         int los;
         int iter;
+        int number;
+        int tmp;
         Scanner input=new Scanner(System.in);
         Random rand = new Random();
-        Random rand2 = new Random();
-        Random rand3 = new Random();
+        int empty;
         double change=0;
         double wochange=0;
         System.out.print("Podaj liczbe generowań: ");
         iter=input.nextInt();
         for(int x=0;x<iter;x++){
+            //nagroda
             los=rand.nextInt(3);
-             //przypadek ze zmianą
-            int number=rand2.nextInt(3);
-            int change_number=rand.nextInt(3);
-            while(number==change_number)
-                change_number=rand.nextInt(3);
-            if(los==change_number)
-                change++;
-            //przypadek bez zamiany
-            number=rand3.nextInt(3);
-            if(los==number)
+            //liczba gracza
+            number=rand.nextInt(3);
+            //przypadek bez zmiany
+            if(los==number){
                 wochange++;
+                continue;
+            }
+            //przypadek ze zmianą
+            do{
+                empty=rand.nextInt(3);
+            }while(empty==los || empty==number);
+            tmp=number;
+            number=0;
+            while(true){
+                if(number!=tmp && number!=empty)
+                    break;
+                number++;
+            }
+            if(number==los) change++;            
         }
         java.text.DecimalFormat df=new java.text.DecimalFormat();
         df.setMaximumFractionDigits(2);
